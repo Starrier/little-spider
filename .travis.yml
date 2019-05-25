@@ -5,7 +5,9 @@ sudo: enabled
 services: mysql
 
 python:
-  - "3.7.3"
+  - "3.6"
+  - "3.7"
+  - "3.7-dev"
 
 env:
   global:
@@ -27,12 +29,15 @@ script:
   - python manage.py test
 
 notifications:
-  recipients:
-    - starrier@starrier.org
-  on_success: change
-  on_failure: always
-  irc:
-    channels:
-      - ""
+  email:
+    recipients:
+      - starrier@starrier.org
     on_success: change
     on_failure: always
+  slack:
+    rooms:
+      - ${SLACK_ACCOUNT}:${SLACK_TOKEN}#general
+      - ${SLACK_ACCOUNT}:${SLACK_TOKEN}#random
+    on_success: change
+    on_failure: always
+    on_pull_requests: true
