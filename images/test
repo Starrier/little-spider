@@ -1,0 +1,56 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+import cv2
+
+# 这是我的数据路径
+DATADIR = "H:\Starrier\github.starrier.org\littleSpider\PetImages"
+CATEGPRIES = ["Dog", "Cat"]
+
+# 生成规则大小的灰度图像训练数据
+IMG_SIZE = 50
+training_data = []
+
+
+def create_training_data():
+    for category in CATEGPRIES:
+        path = os.path.join(DATADIR, category)
+        class_num = CATEGPRIES.index(category)
+        for img in os.listdir(path):
+            try:
+                img_array = cv2.imread(os.path.join(path, img), cv2.IMREAD_GRAYSCALE)
+                # 将图像的大小统一到 50*50
+                new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
+                training_data.append([new_array, class_num])
+            except Exception as e:
+                pass
+
+
+create_training_data()
+# 打乱数据顺序
+import random
+
+random.shuffle(training_data)
+# 随机抽取10个，观察
+for sample in training_data[:10]:
+    print(sample[1])
+
+X = []
+y = []
+# 提取特征（像素值）和标签
+for features, label in training_data:
+    X.append(features)
+    y.append(label)
+
+X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+
+# 序列化，得到二进制文件
+import pickle
+
+pickle_out = open('X.pickle', "wb")
+pickle.dump(X, pickle_out)
+pickle_out.close()
+
+pickle_out = open('y.pickle', "wb")
+pickle.dump(y, pickle_out)
+pickle_out.close()
