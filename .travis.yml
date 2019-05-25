@@ -15,7 +15,6 @@ env:
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS little;'
-  - mv config.example.json configs.json
 
 branches:
   only:
