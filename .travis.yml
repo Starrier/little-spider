@@ -13,9 +13,6 @@ env:
   global:
     - TRAVIS=true
 
-before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS little;'
-
 branches:
   only:
     - f-20190525-starrier-init
