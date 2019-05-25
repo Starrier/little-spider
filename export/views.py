@@ -5,7 +5,7 @@ import re
 
 import pytz
 import requests
-from django.http = import HttpResponse
+from django.http  import HttpResponse
 
 from django.shortcuts import render
 
