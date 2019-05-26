@@ -21,6 +21,7 @@ install:
 
 script:
   - make test
+  - python manage.py check
   - python manage.py test
 
 notifications:
