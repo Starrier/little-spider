@@ -25,12 +25,12 @@ script:
 notifications:
   email:
     recipients:
-      - starrier@starrier.org
+      - ${EMAIL}
     on_success: change
     on_failure: always
   slack:
     rooms:
-      - starrier:6OUsDz37DhDrlK76Ke4M9wb4#general
+      - ${SLACK_ACCOUNT}:${SLACK_TRAVIS_TOKEN}#general
       - ${SLACK_ACCOUNT}:${SLACK_TOKEN}#general
       - ${SLACK_ACCOUNT}:${SLACK_TOKEN}#random
     on_success: change
